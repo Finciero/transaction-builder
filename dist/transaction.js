@@ -37,43 +37,43 @@ class Transaction {
             return this;
         }
         this.checkKeys(transactionObj);
-        this.setOrGetDate(transactionObj.date);
-        this.setOrGetKind(transactionObj.kind);
-        this.setOrGetBalance(transactionObj.balance);
-        this.setOrGetCharge(transactionObj.charge);
-        this.setOrGetDeposit(transactionObj.deposit);
-        this.setOrGetDescription(transactionObj.description);
-        this.setOrGetExtendedDescription(transactionObj.extendedDescription || '');
+        this.date(transactionObj.date);
+        this.kind(transactionObj.kind);
+        this.balance(transactionObj.balance);
+        this.charge(transactionObj.charge);
+        this.deposit(transactionObj.deposit);
+        this.description(transactionObj.description);
+        this.extendedDescription(transactionObj.extendedDescription || '');
         if (typeof transactionObj.dues === 'undefined') {
-            this.setOrGetDues({
+            this.dues({
                 current: 1,
                 total: 1,
             });
         }
         else {
-            this.setOrGetDues({
+            this.dues({
                 current: transactionObj.dues.current,
                 total: transactionObj.dues.total,
             });
         }
-        this.setOrGetInterestRate(transactionObj.interestRate || 0);
-        this.setOrGetSerial(transactionObj.serial || '');
-        this.setOrGetUsd(transactionObj.usd || 0);
+        this.interestRate(transactionObj.interestRate || 0);
+        this.serial(transactionObj.serial || '');
+        this.usd(transactionObj.usd || 0);
     }
     build() {
-        const date = this.setOrGetDate();
-        const kind = this.setOrGetKind();
-        const balance = this.setOrGetBalance();
-        const charge = this.setOrGetCharge();
-        const deposit = this.setOrGetDeposit();
-        const description = this.setOrGetDescription();
-        const extendedDescription = this.setOrGetExtendedDescription();
-        const dues = this.setOrGetDues();
+        const date = this.date();
+        const kind = this.kind();
+        const balance = this.balance();
+        const charge = this.charge();
+        const deposit = this.deposit();
+        const description = this.description();
+        const extendedDescription = this.extendedDescription();
+        const dues = this.dues();
         const currentDue = dues.current;
         const totalDues = dues.total;
-        const interestRate = this.setOrGetInterestRate();
-        const serial = this.setOrGetSerial();
-        const usd = this.setOrGetUsd();
+        const interestRate = this.interestRate();
+        const serial = this.serial();
+        const usd = this.usd();
         return {
             date: date,
             kind: kind,
@@ -92,88 +92,88 @@ class Transaction {
         };
     }
     ;
-    setOrGetDate(date) {
+    date(date) {
         if (typeof date !== 'undefined') {
             this.isValidDate(date);
-            this.date = date;
+            this._date = date;
         }
-        return this.date;
+        return this._date;
     }
-    setOrGetKind(kind) {
+    kind(kind) {
         if (typeof kind === 'undefined') {
-            this.isValidKind(this.kind);
-            return this.kind;
+            this.isValidKind(this._kind);
+            return this._kind;
         }
-        return this.kind = kind;
+        return this._kind = kind;
     }
-    setOrGetBalance(balance) {
+    balance(balance) {
         if (typeof balance !== 'undefined') {
             this.isValidBalance(balance);
-            this.balance = Number(balance);
+            this._balance = Number(balance);
         }
-        return this.balance;
+        return this._balance;
     }
-    setOrGetCharge(charge) {
+    charge(charge) {
         if (typeof charge !== 'undefined') {
             this.isValidCharge(charge);
-            this.charge = Number(charge);
+            this._charge = Number(charge);
         }
-        return this.charge;
+        return this._charge;
     }
-    setOrGetDeposit(deposit) {
+    deposit(deposit) {
         if (typeof deposit !== 'undefined') {
             this.isValidDeposit(deposit);
-            this.deposit = Number(deposit);
+            this._deposit = Number(deposit);
         }
-        return this.deposit;
+        return this._deposit;
     }
-    setOrGetDescription(description) {
+    description(description) {
         if (typeof description !== 'undefined') {
             this.isValidDescription(description);
-            this.description = description;
+            this._description = description;
         }
-        return this.description;
+        return this._description;
     }
-    setOrGetExtendedDescription(extendedDescription) {
+    extendedDescription(extendedDescription) {
         if (typeof extendedDescription !== 'undefined') {
             this.isValidExtendedDescription(extendedDescription);
-            this.extendedDescription = extendedDescription;
+            this._extendedDescription = extendedDescription;
         }
-        return this.extendedDescription;
+        return this._extendedDescription;
     }
-    setOrGetDues(objectDues) {
+    dues(objectDues) {
         if (typeof objectDues !== 'undefined') {
             this.checkDues(objectDues.current, objectDues.total);
-            this.currentDue = objectDues.current;
-            this.totalDues = objectDues.total;
+            this._currentDue = objectDues.current;
+            this._totalDues = objectDues.total;
         }
         return {
-            current: this.currentDue,
-            total: this.totalDues,
+            current: this._currentDue,
+            total: this._totalDues,
         };
     }
-    setOrGetInterestRate(interestRate) {
+    interestRate(interestRate) {
         if (typeof interestRate !== 'undefined') {
             this.isValidInterestRate(interestRate);
-            this.interestRate = interestRate;
+            this._interestRate = interestRate;
         }
-        return this.interestRate;
+        return this._interestRate;
     }
     ;
-    setOrGetSerial(serial) {
+    serial(serial) {
         if (typeof serial !== 'undefined') {
             this.isValidSerial(serial);
-            this.serial = serial;
+            this._serial = serial;
         }
-        return this.serial;
+        return this._serial;
     }
     ;
-    setOrGetUsd(usd) {
+    usd(usd) {
         if (typeof usd !== 'undefined') {
             this.isValidUsd(usd);
-            this.usd = Number(usd);
+            this._usd = Number(usd);
         }
-        return this.usd;
+        return this._usd;
     }
     ;
     /**
