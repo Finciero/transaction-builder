@@ -29,7 +29,7 @@ const VALID_KEYS: Array<string> = [
   'usd',
 ]
 
-type TransactionAttributes = {
+export type TransactionAttributes = {
   date: string
   kind: string
   balance: number | string
@@ -74,18 +74,18 @@ type Dues = {
  *
  */
 export default class Transaction {
-  private date: string
-  private kind: string
-  private balance: number
-  private charge: number
-  private deposit: number
-  private description: string
-  private extendedDescription: string
-  private currentDue: number
-  private totalDues: number
-  private interestRate: number
-  private serial: string
-  private usd: number
+  private _date: string
+  private _kind: string
+  private _balance: number
+  private _charge: number
+  private _deposit: number
+  private _description: string
+  private _extendedDescription: string
+  private _currentDue: number
+  private _totalDues: number
+  private _interestRate: number
+  private _serial: string
+  private _usd: number
 
   constructor(transactionObj: TransactionAttributes) {
     if (typeof transactionObj === 'undefined') {
@@ -93,44 +93,44 @@ export default class Transaction {
     }
 
     this.checkKeys(transactionObj);
-    this.setOrGetDate(transactionObj.date)
-    this.setOrGetKind(transactionObj.kind)
-    this.setOrGetBalance(transactionObj.balance)
-    this.setOrGetCharge(transactionObj.charge)
-    this.setOrGetDeposit(transactionObj.deposit)
-    this.setOrGetDescription(transactionObj.description)
-    this.setOrGetExtendedDescription(transactionObj.extendedDescription || '')
+    this.date(transactionObj.date)
+    this.kind(transactionObj.kind)
+    this.balance(transactionObj.balance)
+    this.charge(transactionObj.charge)
+    this.deposit(transactionObj.deposit)
+    this.description(transactionObj.description)
+    this.extendedDescription(transactionObj.extendedDescription || '')
     if (typeof transactionObj.dues === 'undefined') {
-      this.setOrGetDues({
+      this.dues({
         current: 1,
         total: 1,
       })
     } else {
-      this.setOrGetDues({
+      this.dues({
         current: transactionObj.dues.current,
         total: transactionObj.dues.total,
       })
     }
 
-    this.setOrGetInterestRate(transactionObj.interestRate || 0)
-    this.setOrGetSerial(transactionObj.serial || '')
-    this.setOrGetUsd(transactionObj.usd || 0)
+    this.interestRate(transactionObj.interestRate || 0)
+    this.serial(transactionObj.serial || '')
+    this.usd(transactionObj.usd || 0)
   }
 
   build (): ReturnedTransaction {
-    const date = this.setOrGetDate()
-    const kind = this.setOrGetKind()
-    const balance = this.setOrGetBalance()
-    const charge = this.setOrGetCharge()
-    const deposit = this.setOrGetDeposit()
-    const description = this.setOrGetDescription()
-    const extendedDescription = this.setOrGetExtendedDescription()
-    const dues = this.setOrGetDues()
+    const date = this.date()
+    const kind = this.kind()
+    const balance = this.balance()
+    const charge = this.charge()
+    const deposit = this.deposit()
+    const description = this.description()
+    const extendedDescription = this.extendedDescription()
+    const dues = this.dues()
     const currentDue = dues.current
     const totalDues = dues.total
-    const interestRate = this.setOrGetInterestRate()
-    const serial = this.setOrGetSerial()
-    const usd = this.setOrGetUsd()
+    const interestRate = this.interestRate()
+    const serial = this.serial()
+    const usd = this.usd()
 
     return {
       date: date,
@@ -150,96 +150,96 @@ export default class Transaction {
     };
   };
 
-  setOrGetDate (date?: string) {
+  date (date?: string) {
     if (typeof date !== 'undefined') {
       this.isValidDate(date)
-      this.date = date
+      this._date = date
     }
-    return this.date
+    return this._date
   }
 
-  setOrGetKind (kind?: string) {
+  kind (kind?: string) {
     if (typeof kind === 'undefined') {
-      this.isValidKind(this.kind)
-      return this.kind
+      this.isValidKind(this._kind)
+      return this._kind
     }
-    return this.kind = kind
+    return this._kind = kind
   }
 
-  setOrGetBalance (balance?: number | string) {
+  balance (balance?: number | string) {
     if (typeof balance !== 'undefined') {
       this.isValidBalance(balance)
-      this.balance = Number(balance)
+      this._balance = Number(balance)
     }
-    return this.balance
+    return this._balance
   }
 
-  setOrGetCharge (charge?: number | string) {
+  charge (charge?: number | string) {
     if (typeof charge !== 'undefined') {
       this.isValidCharge(charge)
-      this.charge = Number(charge)
+      this._charge = Number(charge)
     }
-    return this.charge
+    return this._charge
   }
 
-  setOrGetDeposit (deposit?: number | string) {
+  deposit (deposit?: number | string) {
     if (typeof deposit !== 'undefined') {
       this.isValidDeposit(deposit)
-      this.deposit = Number(deposit)
+      this._deposit = Number(deposit)
     }
-    return this.deposit
+    return this._deposit
   }
 
-  setOrGetDescription (description?: string) {
+  description (description?: string) {
     if (typeof description !== 'undefined') {
       this.isValidDescription(description)
-      this.description = description
+      this._description = description
     }
-    return this.description
+    return this._description
   }
 
-  setOrGetExtendedDescription (extendedDescription?: string) {
+  extendedDescription (extendedDescription?: string) {
     if (typeof extendedDescription !== 'undefined') {
       this.isValidExtendedDescription(extendedDescription)
-      this.extendedDescription = extendedDescription
+      this._extendedDescription = extendedDescription
     }
-    return this.extendedDescription
+    return this._extendedDescription
   }
 
-  setOrGetDues (objectDues?: Dues) {
+  dues (objectDues?: Dues) {
     if (typeof objectDues !== 'undefined') {
       this.checkDues(objectDues.current, objectDues.total)
-      this.currentDue = objectDues.current
-      this.totalDues = objectDues.total
+      this._currentDue = objectDues.current
+      this._totalDues = objectDues.total
     }
     return {
-      current: this.currentDue,
-      total: this.totalDues,
+      current: this._currentDue,
+      total: this._totalDues,
     }
   }
 
-  setOrGetInterestRate (interestRate?: number) {
+  interestRate (interestRate?: number) {
     if (typeof interestRate !== 'undefined') {
       this.isValidInterestRate(interestRate)
-      this.interestRate = interestRate
+      this._interestRate = interestRate
     }
-    return this.interestRate
+    return this._interestRate
   };
 
-  setOrGetSerial (serial?: string) {
+  serial (serial?: string) {
     if (typeof serial !== 'undefined') {
       this.isValidSerial(serial)
-      this.serial = serial
+      this._serial = serial
     }
-    return this.serial
+    return this._serial
   };
 
-  setOrGetUsd (usd?: number | string) {
+  usd (usd?: number | string) {
     if (typeof usd !== 'undefined') {
       this.isValidUsd(usd)
-      this.usd = Number(usd)
+      this._usd = Number(usd)
     }
-    return this.usd
+    return this._usd
   };
   /**
   * Validates that the input string is a valid date formatted as "mm/dd/yyyy"
