@@ -6,10 +6,10 @@ This class handles validation and formatting of bank transactions to be used in 
 Requiring
 =========
 ```javascript
-    Transaction = require('./transaction');
-    t = new Transaction() // Instance new transaction
+    const Transaction = require('./transaction');
+    const t = new Transaction() // Instance new transaction
     // or
-    t = new Transaction(object)
+    const t = new Transaction(object)
 ```
 
 This new instance should check every key of the given object. Only let pass valid keys of the list defined inside this module.
@@ -157,7 +157,7 @@ Get:
 Also we can pass an object directly to the new instance:
 
 ```javascript
-t = new Transactions({
+const t = new Transactions({
     'date': '01/06/2014',
     'kind': 'normal',
     'balance': 0,
