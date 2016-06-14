@@ -1,0 +1,29 @@
+{
+  "name": "finciero-transaction-builder",
+  "version": "1.0.0",
+  "description": "Bank transaction model for Finciero",
+  "main": "dist/transaction.js",
+  "scripts": {
+    "prepublish": "tsc",
+    "pretest": "tsc",
+    "test": "mocha dist/test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Finciero/finciero-transaction.git"
+  },
+  "author": "Sebastian Vera",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Finciero/finciero-transaction/issues"
+  },
+  "homepage": "https://github.com/Finciero/finciero-transaction",
+  "dependencies": {
+    "is_js": "^0.8.0",
+    "lodash": "^4.13.1"
+  },
+  "devDependencies": {
+    "chai": "^3.5.0",
+    "mocha": "^2.5.3"
+  }
+}
