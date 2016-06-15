@@ -16,7 +16,7 @@ This new instance should check every key of the given object. Only let pass vali
 
 Example of valid transactions object.
 -----------------
-```json
+```javascript
 {
   'date': '01/02/2014',
   'kind': 'normal',
