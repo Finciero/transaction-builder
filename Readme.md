@@ -6,32 +6,32 @@ This class handles validation and formatting of bank transactions to be used in 
 Requiring
 =========
 ```javascript
-    const Transaction = require('./transaction');
-    const t = new Transaction() // Instance new transaction
-    // or
-    const t = new Transaction(object)
+const Transaction = require('./transaction');
+const t = new Transaction() // Instance new transaction
+  // or
+const t = new Transaction(object)
 ```
 
 This new instance should check every key of the given object. Only let pass valid keys of the list defined inside this module.
 
 Example of valid transactions object.
 -----------------
-```
+```json
 {
-    'date': '01/02/2014',
-    'kind': 'normal',
-    'balance': 0,
-    'charge': 15000,
-    'deposit': 0,
-    'description': 'Giro cajero automático',
-    'extendedDescription': '',
-    'dues': {
-        'current': 1,
-        'total': 1
-    },
-    'interestRate': 0,
-    'serial': '',
-    'usd': 0
+  'date': '01/02/2014',
+  'kind': 'normal',
+  'balance': 0,
+  'charge': 15000,
+  'deposit': 0,
+  'description': 'Giro cajero automático',
+  'extendedDescription': '',
+  'dues': {
+    'current': 1,
+    'total': 1
+  },
+  'interestRate': 0,
+  'serial': '',
+  'usd': 0
 }
 ```
 Setters & getters
@@ -45,126 +45,161 @@ Only in format *dd/mm/yyyy* where day and month are allowed to be prefixed by a 
 
 Set:
 
-    t.date('12/11/2004'); // Valid
-    t.date('2-11-2004'); // Invalid
-    t.date('12132012'); // Invalid
-    t.date('32/12/2013'); // Invalid, day out of range
+```javascript
+t.date('12/11/2004'); // Valid
+t.date('2-11-2004'); // Invalid
+t.date('12132012'); // Invalid
+t.date('32/12/2013'); // Invalid, day out of range
+```
 
 Get:
 
-    t.date(); // Returns a string formatted as *dd/mm/yyyy* and prefixes day and month with a *0* when necessary
+```javascript
+t.date(); // Returns a string formatted as *dd/mm/yyyy* and prefixes day and month with a *0* when necessary
+```
 ---
 **Kind**
 Kind must be a string and must be in the list of valid types (default is "normal")
 
 Set:
 
-    t.kind("normal"); // Valid
-    t.kind("due"); // Valid
-    t.kind("snoop dog") // Invalid
+```javascript
+t.kind("normal"); // Valid
+t.kind("due"); // Valid
+t.kind("snoop dog") // Invalid
+```
 
 Get:
 
-    t.kind()
+```javascript
+t.kind()
+```
 ---
 **Balance, charge and deposit**
 Balance, charge and deposit must be a valid number, greater or equal to 0.
 
 Set:
 
-    t.balance(10000) // Valid
-    t.balance(-1000) // Invalid
-    t.charge(10000) // Valid
-    t.charge(-1000) // Invalid
-    t.deposit(10000) // Valid
-    t.deposit(-1000) // Invalid
-
+```javascript
+  t.balance(10000) // Valid
+  t.balance(-1000) // Invalid
+  t.charge(10000) // Valid
+  t.charge(-1000) // Invalid
+  t.deposit(10000) // Valid
+t.deposit(-1000) // Invalid
+```
 Get:
 
-	t.balance()
-	t.charge()
-	t.deposit()
+```javascript
+t.balance()
+t.charge()
+t.deposit()
+```
 ---
 **Description**
 Description must be a valid string and not empty.
 
 Set:
 
-	t.description('Cargo por servicio')
+```javascript
+t.description('Cargo por servicio')
+```
 
 Get:
 
-	t.description()
+```javascript
+t.description()
+```
 ---
 **Extended description**
 Extended description must be a valid string and can be empty.
 
 Set:
 
-	t.extendedDescription('Santiago') // Valid
-	t.extendedDescription('') // Valid
+```javascript
+t.extendedDescription('Santiago') // Valid
+t.extendedDescription('') // Valid
+```
 
 Get:
 
-	t.extendedDescription()
+```javascript
+t.extendedDescription()
+```
 ---
 **Dues**
 Dues receives an object with `current` and `total` fields. Where both must be integers bigger than *0* and current cannot be bigger than total
 
 Set:
 
-    t.dues({current: 1, total: 12}); // Valid
-    t.dues({current: 3, total: 2}); // Invalid
-    t.dues({current: 3}); // Invalid
+```javascript
+t.dues({current: 1, total: 12}); // Valid
+t.dues({current: 3, total: 2}); // Invalid
+t.dues({current: 3}); // Invalid
+```
 
 Get:
 
-    t.dues(); // Returns: {current: ..., total: ...}
+```javascript
+t.dues(); // Returns: {current: ..., total: ...}
+```
 ---
 **Interest Rate**
 Interest must be a number, greater or equal than 0.
 
 Set:
 
-	t.intersestRate(0.1)
+```javascript
+t.intersestRate(0.1)
+```
 
 Get:
 
-	t.interestRate()
+```javascript
+t.interestRate()
+```
 ---
 **Serial**
 Serial must be a valid string, can be empty
 
 Set:
 
-	t.serial('00023124412')
+```javascript
+t.serial('00023124412')
+```
 
 Get:
 
-	t.serial()
+```javascript
+t.serial()
+```
 ---
 **Usd**
 Serial must be a valid string, can be empty
 
 Set:
 
-	t.usd('15.44')
+```javascript
+t.usd('15.44')
+```
 
 Get:
 
-	t.usd()
+```javascript
+t.usd()
+```
 ---
 Also we can pass an object directly to the new instance:
 
 ```javascript
 const t = new Transactions({
-    'date': '01/06/2014',
-    'kind': 'normal',
-    'balance': 0,
-    'charge': 15000,
-    'deposit': 0,
-    'description': 'Giro cajero automatico'
-  });
+  'date': '01/06/2014',
+  'kind': 'normal',
+  'balance': 0,
+  'charge': 15000,
+  'deposit': 0,
+  'description': 'Giro cajero automatico'
+});
 t.build();
 ```
 
@@ -185,12 +220,12 @@ Transactions object MUST contain
 
 ```javascript
 {
-    'date': '...',
-    'description': '...',
-    'charge': '...',
-    'balance': '...',
-    'deposit': '...',
-    'kind': : '...'
+  'date': '...',
+  'description': '...',
+  'charge': '...',
+  'balance': '...',
+  'deposit': '...',
+  'kind': : '...'
 }
 ```
 
@@ -198,14 +233,14 @@ Optional values:
 
 ```javascript
 {
-    'extendedDescription': '...', // defaul value ''
-    'serial': '...', // defaul value ''
-    'dues': {
-        'current': '...', // defaul value 1
-        'total': '...', // defaul value 1
-    },
-    'interest_rate': '...' // defaul value 0
-    'usd': '...' // defaul value 0
+  'extendedDescription': '...', // defaul value ''
+  'serial': '...', // defaul value ''
+  'dues': {
+      'current': '...', // defaul value 1
+      'total': '...', // defaul value 1
+  },
+  'interest_rate': '...' // defaul value 0
+  'usd': '...' // defaul value 0
 }
 ```
 
