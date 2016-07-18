@@ -1,8 +1,8 @@
 {
   "name": "finciero-transaction-builder",
-  "version": "1.0.0",
+  "version": "1.0.3",
   "description": "Bank transaction model for Finciero",
-  "main": "dist/transaction.js",
+  "main": "transaction.ts",
   "scripts": {
     "prepublish": "tsc",
     "pretest": "tsc",
